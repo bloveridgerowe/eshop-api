@@ -1,4 +1,4 @@
-using Application.Queries.Customers;
+using Application.Queries.Customer;
 using FastEndpoints;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

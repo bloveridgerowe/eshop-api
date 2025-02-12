@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Application.Queries.Customers;
+namespace Application.Queries.Customer;
 
 public class GetCustomerDetailsQuery : IRequest<GetCustomerDetailsQueryResponse>
 {

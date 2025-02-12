@@ -1,9 +1,8 @@
 using Application.Mappers;
-using Domain.Entities;
 using Domain.Repositories;
 using MediatR;
 
-namespace Application.Queries.Customers;
+namespace Application.Queries.Customer;
 
 public class GetCustomerDetailsQueryHandler : IRequestHandler<GetCustomerDetailsQuery, GetCustomerDetailsQueryResponse>
 {
@@ -16,7 +15,7 @@ public class GetCustomerDetailsQueryHandler : IRequestHandler<GetCustomerDetails
 
     public async Task<GetCustomerDetailsQueryResponse> Handle(GetCustomerDetailsQuery request, CancellationToken cancellationToken)
     {
-        Customer? customer = await _customerRepository.FindByIdAsync(request.CustomerId);
+        Domain.Entities.Customer? customer = await _customerRepository.FindByIdAsync(request.CustomerId);
 
         if (customer == null)
         {

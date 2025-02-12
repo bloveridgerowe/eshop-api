@@ -37,7 +37,6 @@ public class Order : Entity
     {
         ValidateId(id);
         ValidateCustomerId(customerId);
-        ValidateStatus(status);
         
         CustomerId = customerId;
         Status = status;
@@ -97,8 +96,6 @@ public class Order : Entity
 
     public void SetStatus(OrderProcessingStatus status)
     {
-        ValidateStatus(status);
-        
         if (status == OrderProcessingStatus.Pending)
         {
             return;
@@ -190,14 +187,6 @@ public class Order : Entity
         if (Status != OrderProcessingStatus.Pending)
         {
             throw new OrderValidationException("Can only modify pending orders");
-        }
-    }
-    
-    private static void ValidateStatus(OrderProcessingStatus status)
-    {
-        if (!Enum.IsDefined(status))
-        {
-            throw new OrderValidationException($"Invalid order status: {status}");
         }
     }
 }

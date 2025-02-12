@@ -1,4 +1,4 @@
-using Application.Queries.Customers;
+using Application.Queries.Customer;
 using Domain.Entities;
 using Domain.Repositories;
 using Moq;

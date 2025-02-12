@@ -12,7 +12,7 @@ public class OrderEntityConfiguration : IEntityTypeConfiguration<OrderEntity>
         builder.Property(o => o.CustomerId)
             .IsRequired();
 
-        builder.Property(o => o.Status)
+        builder.Property(o => o.StatusId)
             .IsRequired()
             .HasMaxLength(20);
 
@@ -23,5 +23,10 @@ public class OrderEntityConfiguration : IEntityTypeConfiguration<OrderEntity>
             .WithOne()
             .HasForeignKey(i => i.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasOne(o => o.Status)
+            .WithMany()
+            .HasForeignKey(o => o.StatusId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

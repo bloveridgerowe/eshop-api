@@ -1,6 +1,6 @@
 using Application.DataTransferObjects;
 
-namespace Application.Queries.Customers;
+namespace Application.Queries.Customer;
 
 public class GetCustomerDetailsQueryResponse
 {

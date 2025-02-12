@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Npgsql;
+using Presentation.Api.BackgroundServices;
 using Presentation.Api.Middleware;
 
 namespace Presentation.Api.Extensions;
@@ -145,6 +146,15 @@ public static class WebApplicationExtensions
                 .AllowAnyHeader()
                 .AllowCredentials());
         });
+
+        return webApplicationBuilder;
+    }
+    
+    public static WebApplicationBuilder AddHostedServices(this WebApplicationBuilder webApplicationBuilder)
+    {
+        webApplicationBuilder.Services
+            .AddHostedService<OrderFulfilmentBackgroundService>()
+            .AddHostedService<StaleSessionCleanupBackgroundService>();
 
         return webApplicationBuilder;
     }

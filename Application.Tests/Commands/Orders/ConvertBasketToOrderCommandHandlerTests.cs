@@ -3,6 +3,8 @@ using Domain.Aggregates.Basket;
 using Domain.Aggregates.Orders;
 using Domain.Entities;
 using Domain.Exceptions;
+using Domain.Exceptions.Customers;
+using Domain.Exceptions.Orders;
 using Domain.Repositories;
 using Moq;
 using Domain.ValueObjects;

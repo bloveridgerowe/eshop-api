@@ -11,13 +11,7 @@ public static class OrderMapper
         Order order = new Order(entity.Id, entity.CustomerId, entity.CreatedAt);
         
         order.AddItems(entity.Items.Select(ei => new OrderItem(ei.ProductId, ei.Price, ei.Quantity, ei.Product.Name)).ToList());
-
-        if (!Enum.TryParse(entity.Status, out OrderProcessingStatus status))
-        {
-            throw new InvalidOrderStatusException(entity.Status);
-        }
-        
-        order.SetStatus(status);
+        order.SetStatus(OrderProcessingStatus.Statuses.Single(s => s.Id == entity.StatusId));
 
         return order;
     }
@@ -28,7 +22,7 @@ public static class OrderMapper
         {
             Id = domain.Id,
             CustomerId = domain.CustomerId,
-            Status = domain.Status.ToString(),
+            StatusId = domain.Status.Id,
             Items = domain.Items.Select(item => item.ToPersistence(domain.Id)).ToList(),
             CreatedAt = domain.CreatedAt
         };

@@ -38,7 +38,7 @@ public class GetOrdersQueryHandlerTests
             // Arrange
             GetOrdersQuery query = new GetOrdersQuery { CustomerId = ValidCustomerId };
             _orderRepositoryMock
-                .Setup(x => x.GetAllAsync(ValidCustomerId))
+                .Setup(x => x.GetOrdersForCustomerAsync(ValidCustomerId))
                 .ReturnsAsync(_orders);
 
             // Act
@@ -68,7 +68,7 @@ public class GetOrdersQueryHandlerTests
             // Arrange
             GetOrdersQuery query = new GetOrdersQuery { CustomerId = ValidCustomerId };
             _orderRepositoryMock
-                .Setup(x => x.GetAllAsync(ValidCustomerId))
+                .Setup(x => x.GetOrdersForCustomerAsync(ValidCustomerId))
                 .ReturnsAsync([]);
 
             // Act
@@ -89,7 +89,7 @@ public class GetOrdersQueryHandlerTests
             
             GetOrdersQuery query = new GetOrdersQuery { CustomerId = ValidCustomerId };
             _orderRepositoryMock
-                .Setup(x => x.GetAllAsync(ValidCustomerId))
+                .Setup(x => x.GetOrdersForCustomerAsync(ValidCustomerId))
                 .ReturnsAsync(orders);
 
             // Act

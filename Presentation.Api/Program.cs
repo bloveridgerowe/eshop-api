@@ -16,6 +16,7 @@ public class Program
         webApplicationBuilder.ConfigureJwt(webApplicationBuilder.Configuration);
         webApplicationBuilder.AddFastEndpoints();
         webApplicationBuilder.SetUrls();
+        webApplicationBuilder.AddHostedServices();
         
         WebApplication webApplication = webApplicationBuilder.Build();
         webApplication.EnsureDatabaseExists();

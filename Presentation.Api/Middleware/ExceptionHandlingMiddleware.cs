@@ -1,4 +1,5 @@
 using Domain.Exceptions;
+using Domain.Exceptions.Customers;
 using Domain.Exceptions.Products;
 using Microsoft.AspNetCore.Mvc;
 

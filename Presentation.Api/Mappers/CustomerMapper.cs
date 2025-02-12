@@ -1,4 +1,4 @@
-using Application.Queries.Customers;
+using Application.Queries.Customer;
 using Presentation.Api.Endpoints.Customers;
 
 namespace Presentation.Api.Mappers;

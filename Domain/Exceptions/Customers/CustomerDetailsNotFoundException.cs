@@ -1,4 +1,4 @@
-namespace Domain.Exceptions;
+namespace Domain.Exceptions.Customers;
 
 public class CustomerDetailsNotFoundException : Exception
 {

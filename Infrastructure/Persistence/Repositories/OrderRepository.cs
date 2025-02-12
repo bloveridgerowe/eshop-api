@@ -15,7 +15,7 @@ public class OrderRepository : IOrderRepository
         _context = context;
     }
 
-    public async Task<List<Order>> GetAllAsync(Guid customerId)
+    public async Task<List<Order>> GetOrdersForCustomerAsync(Guid customerId)
     {
         return await _context.Orders
             .Include(o => o.Items)
@@ -23,6 +23,26 @@ public class OrderRepository : IOrderRepository
             .Where(o => o.CustomerId == customerId)
             .Select(o => o.ToDomain())
             .ToListAsync();
+    }
+
+    public async Task<List<Order>> GetPendingOrdersAsync()
+    {
+        return await _context.Orders
+            .Include(o => o.Items)
+            .ThenInclude(i => i.Product)
+            .Where(o => o.Status.Id == OrderProcessingStatus.Pending.Id)
+            .Select(o => o.ToDomain())
+            .ToListAsync();
+    }
+
+    public async Task<List<Order>> GetShippedOrdersAsync()
+    {
+        return await _context.Orders
+            .Include(o => o.Items)
+            .ThenInclude(i => i.Product)
+            .Where(o => o.Status.Id == OrderProcessingStatus.Shipped.Id)
+            .Select(o => o.ToDomain())
+            .ToListAsync();    
     }
 
     public async Task<List<Order>> FindByCustomerIdAsync(Guid id)
@@ -67,6 +87,7 @@ public class OrderRepository : IOrderRepository
         {
             // Update the existing order properties
             existingEntity.CustomerId = order.CustomerId;
+            existingEntity.StatusId = order.Status.Id;
 
             // Update or add order items
             foreach (OrderItem domainItem in order.Items)
