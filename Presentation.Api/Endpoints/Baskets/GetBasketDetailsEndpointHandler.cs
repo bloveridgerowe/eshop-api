@@ -20,12 +20,11 @@ public class GetBasketDetailsEndpointHandler : EndpointWithoutRequest<GetBasketD
 
     public override async Task HandleAsync(CancellationToken cancellationToken)
     {
-        GetBasketDetailsQuery getBasketDetailsQuery = new GetBasketDetailsQuery
+        GetBasketDetailsQueryResponse basketDetailsQueryResponse = await _mediator.Send(new GetBasketDetailsQuery
         {
-            CustomerId = User.GetId()
-        };
+            CustomerId = User.GetId() 
+        });
         
-        GetBasketDetailsQueryResponse basketDetailsQueryResponse = await _mediator.Send(getBasketDetailsQuery, cancellationToken);
-        await SendOkAsync(basketDetailsQueryResponse.ToHttpResponse(), cancellationToken);
+        await SendOkAsync(basketDetailsQueryResponse.ToHttpResponse());
     }
 } 

@@ -5,7 +5,7 @@ namespace Application.Mappers;
 
 public static class ProductMapper
 {
-    public static ProductDetails ToCommandQueryModel(this Product product)
+    public static ProductDetails ToQueryModel(this Product product)
     {
         return new ProductDetails
         {

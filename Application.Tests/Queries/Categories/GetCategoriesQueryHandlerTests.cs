@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Application.Tests.Queries.Categories;
 
-public class GetCategoriesHandlerTests
+public class GetCategoriesQueryHandlerTests
 {
     private static readonly Guid ValidId1 = Guid.NewGuid();
     private static readonly Guid ValidId2 = Guid.NewGuid();
@@ -15,13 +15,13 @@ public class GetCategoriesHandlerTests
     private static readonly String ValidName2 = "Books";
 
     private readonly Mock<ICategoryRepository> _categoryRepositoryMock;
-    private readonly GetCategoriesHandler _handler;
+    private readonly GetCategoriesQueryHandler _queryHandler;
     private readonly List<Category> _categories;
 
-    public GetCategoriesHandlerTests()
+    public GetCategoriesQueryHandlerTests()
     {
         _categoryRepositoryMock = new Mock<ICategoryRepository>();
-        _handler = new GetCategoriesHandler(_categoryRepositoryMock.Object);
+        _queryHandler = new GetCategoriesQueryHandler(_categoryRepositoryMock.Object);
 
         _categories =
         [
@@ -30,7 +30,7 @@ public class GetCategoriesHandlerTests
         ];
     }
 
-    public class HandleMethod : GetCategoriesHandlerTests
+    public class HandleMethod : GetCategoriesQueryHandlerTests
     {
         [Fact]
         public async Task WithCategories_ReturnsAllCategories()
@@ -42,7 +42,7 @@ public class GetCategoriesHandlerTests
                 .ReturnsAsync(_categories);
 
             // Act
-            GetCategoriesQueryResponse response = await _handler.Handle(query, CancellationToken.None);
+            GetCategoriesQueryResponse response = await _queryHandler.Handle(query, CancellationToken.None);
 
             // Assert
             Assert.NotNull(response);
@@ -67,7 +67,7 @@ public class GetCategoriesHandlerTests
                 .ReturnsAsync([]);
 
             // Act
-            GetCategoriesQueryResponse response = await _handler.Handle(query, CancellationToken.None);
+            GetCategoriesQueryResponse response = await _queryHandler.Handle(query, CancellationToken.None);
 
             // Assert
             Assert.NotNull(response);

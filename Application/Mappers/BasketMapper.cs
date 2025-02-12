@@ -5,7 +5,7 @@ namespace Application.Mappers;
 
 public static class BasketMapper
 {
-    public static BasketItemDetails ToCommandQueryModel(this BasketItem basketItem)
+    public static BasketItemDetails ToQueryModel(this BasketItem basketItem)
     {
         return new BasketItemDetails
         {
@@ -16,7 +16,7 @@ public static class BasketMapper
         };
     }
 
-    public static BasketDetails ToCommandQueryModel(this Basket basket)
+    public static BasketDetails ToQueryModel(this Basket basket)
     {
         return new BasketDetails
         {
@@ -25,7 +25,7 @@ public static class BasketMapper
             CreatedAt = basket.CreatedAt,
             UpdatedAt = basket.UpdatedAt,
             TotalPrice = basket.TotalPrice,
-            Items = basket.Items.Select(item => item.ToCommandQueryModel()).ToList()
+            Items = basket.Items.Select(item => item.ToQueryModel()).ToList()
         };
     }
 }

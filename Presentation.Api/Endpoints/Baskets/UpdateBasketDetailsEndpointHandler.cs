@@ -4,6 +4,7 @@ using FastEndpoints;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Presentation.Api.Extensions;
+using Presentation.Api.Mappers;
 
 namespace Presentation.Api.Endpoints.Baskets;
 
@@ -12,23 +13,16 @@ namespace Presentation.Api.Endpoints.Baskets;
 public class UpdateBasketDetailsEndpointHandler : Endpoint<UpdateBasketDetailsHttpRequest>
 {
     private readonly IMediator _mediator;
-    private readonly IBasketRepository _basketRepository;
 
-    public UpdateBasketDetailsEndpointHandler(IMediator mediator, IBasketRepository basketRepository)
+    public UpdateBasketDetailsEndpointHandler(IMediator mediator)
     {
         _mediator = mediator;
-        _basketRepository = basketRepository;
     }
 
     public override async Task HandleAsync(UpdateBasketDetailsHttpRequest httpRequest, CancellationToken cancellationToken)
     {
-        UpdateBasketDetailsCommand command = new UpdateBasketDetailsCommand
-        {
-            CustomerId = User.GetId(),
-            Items = httpRequest.Items
-        };
-
-        await _mediator.Send(command, cancellationToken);
-        await SendOkAsync(cancellationToken);
+        await _mediator.Send(httpRequest.ToCommand(User));
+        
+        await SendOkAsync();
     }
 } 

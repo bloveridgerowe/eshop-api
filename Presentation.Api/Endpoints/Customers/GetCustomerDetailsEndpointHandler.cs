@@ -20,19 +20,17 @@ public class GetCustomerDetailsEndpointHandler : EndpointWithoutRequest<GetCusto
 
     public override async Task HandleAsync(CancellationToken cancellationToken)
     {
-        GetCustomerDetailsQuery query = new GetCustomerDetailsQuery
+        GetCustomerDetailsQueryResponse customerDetailsQueryResponse = await _mediator.Send(new GetCustomerDetailsQuery
         {
-            CustomerId = User.GetId()
-        };
-        
-        GetCustomerDetailsQueryResponse customerDetailsQueryResponse = await _mediator.Send(query, cancellationToken);
+            CustomerId = User.GetId() 
+        });
 
         if (customerDetailsQueryResponse.CustomerDetails is null)
         {
-            await SendNotFoundAsync(cancellationToken);
+            await SendNotFoundAsync();
             return;
         }
         
-        await SendOkAsync(customerDetailsQueryResponse.ToHttpResponse(), cancellationToken);
+        await SendOkAsync(customerDetailsQueryResponse.ToHttpResponse());
     }
 }

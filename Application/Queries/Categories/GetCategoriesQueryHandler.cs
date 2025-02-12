@@ -5,11 +5,11 @@ using MediatR;
 
 namespace Application.Queries.Categories;
 
-public class GetCategoriesHandler : IRequestHandler<GetCategoriesQuery, GetCategoriesQueryResponse>
+public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, GetCategoriesQueryResponse>
 {
     private readonly ICategoryRepository _categoryRepository;
 
-    public GetCategoriesHandler(ICategoryRepository categoryRepository)
+    public GetCategoriesQueryHandler(ICategoryRepository categoryRepository)
     {
         _categoryRepository = categoryRepository;
     }
@@ -20,7 +20,7 @@ public class GetCategoriesHandler : IRequestHandler<GetCategoriesQuery, GetCateg
         
         GetCategoriesQueryResponse response = new GetCategoriesQueryResponse
         {
-            Categories = categories.Select(category => category.ToCommandQueryModel()).ToList()
+            Categories = categories.Select(category => category.ToQueryModel()).ToList()
         };
 
         return response;

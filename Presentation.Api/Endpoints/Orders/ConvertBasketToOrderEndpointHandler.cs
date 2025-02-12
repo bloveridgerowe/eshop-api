@@ -28,17 +28,16 @@ public class ConvertBasketToOrderEndpointHandler : EndpointWithoutRequest<Conver
 
         if (basket is null)
         {
-            await SendNotFoundAsync(cancellationToken);
+            await SendNotFoundAsync();
             return;
         }
-
-        ConvertBasketToOrderCommand command = new ConvertBasketToOrderCommand
+        
+        ConvertBasketToOrderCommandResponse response = await _mediator.Send(new ConvertBasketToOrderCommand
         {
             CustomerId = User.GetId(),
             BasketId = basket.Id
-        };
-
-        ConvertBasketToOrderCommandResponse response = await _mediator.Send(command, cancellationToken);
-        await SendOkAsync(response.ToHttpResponse(), cancellationToken);
+        });
+        
+        await SendOkAsync(response.ToHttpResponse());
     }
 } 

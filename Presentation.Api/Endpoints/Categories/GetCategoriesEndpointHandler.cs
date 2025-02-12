@@ -19,7 +19,8 @@ public class GetCategoriesEndpointHandler : EndpointWithoutRequest<GetCategories
 
     public override async Task HandleAsync(CancellationToken cancellationToken)
     {
-        GetCategoriesQueryResponse categoriesQueryResponse = await _mediator.Send(new GetCategoriesQuery(), cancellationToken);
-        await SendOkAsync(categoriesQueryResponse.ToHttpResponse(), cancellationToken);
+        GetCategoriesQueryResponse categoriesQueryResponse = await _mediator.Send(new GetCategoriesQuery());
+        
+        await SendOkAsync(categoriesQueryResponse.ToHttpResponse());
     }
 } 

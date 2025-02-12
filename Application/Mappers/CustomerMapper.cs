@@ -5,7 +5,7 @@ namespace Application.Mappers;
 
 public static class CustomerMapper
 {
-    public static CustomerDetails ToCommandQueryModel(this Customer customer)
+    public static CustomerDetails ToQueryModel(this Customer customer)
     {
         return new CustomerDetails
         {

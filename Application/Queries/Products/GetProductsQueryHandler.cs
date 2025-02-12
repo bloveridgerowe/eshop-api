@@ -33,7 +33,7 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, GetProd
 
         return new GetProductsQueryResponse
         {
-            Products = products.Select(p => p.ToCommandQueryModel()).ToList()
+            Products = products.Select(p => p.ToQueryModel()).ToList()
         };
     }
 }

@@ -19,7 +19,8 @@ public class GetProductsEndpointHandler : Endpoint<GetProductsHttpRequest, GetPr
 
     public override async Task HandleAsync(GetProductsHttpRequest request, CancellationToken cancellationToken)
     {
-        GetProductsQueryResponse response = await _mediator.Send(request.ToQuery(), cancellationToken);
-        await SendOkAsync(response.ToHttpResponse(), cancellationToken);
+        GetProductsQueryResponse response = await _mediator.Send(request.ToQuery());
+        
+        await SendOkAsync(response.ToHttpResponse());
     }
 }

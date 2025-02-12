@@ -24,7 +24,7 @@ public class GetCustomerDetailsQueryHandler : IRequestHandler<GetCustomerDetails
 
         return new GetCustomerDetailsQueryResponse
         {
-            CustomerDetails = customer.ToCommandQueryModel()
+            CustomerDetails = customer.ToQueryModel()
         };
     }
 }

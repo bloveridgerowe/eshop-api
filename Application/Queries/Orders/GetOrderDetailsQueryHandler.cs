@@ -25,7 +25,7 @@ public class GetOrderDetailsQueryHandler : IRequestHandler<GetOrderDetailsQuery,
 
         GetOrderDetailsQueryResponse response = new GetOrderDetailsQueryResponse
         {
-            OrderDetails = order.ToCommandQueryModel()
+            OrderDetails = order.ToQueryModel()
         };
 
         return response;

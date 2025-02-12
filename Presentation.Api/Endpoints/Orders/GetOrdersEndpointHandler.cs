@@ -20,12 +20,11 @@ public class GetOrdersEndpointHandler : EndpointWithoutRequest<GetOrdersHttpResp
 
     public override async Task HandleAsync(CancellationToken cancellationToken)
     {
-        GetOrdersQuery query = new GetOrdersQuery
+        GetOrdersQueryResponse response = await _mediator.Send(new GetOrdersQuery
         {
             CustomerId = User.GetId()
-        };
+        });
         
-        GetOrdersQueryResponse response = await _mediator.Send(query, cancellationToken);
-        await SendOkAsync(response.ToHttpResponse(), cancellationToken);
+        await SendOkAsync(response.ToHttpResponse());
     }
 } 

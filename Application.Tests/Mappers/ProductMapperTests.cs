@@ -11,12 +11,12 @@ public class ProductMapperTests
     private static readonly String ValidName = "Test Product";
     private static readonly Decimal ValidPrice = 10.00m;
     private static readonly Int32 ValidStock = 5;
-    private static readonly bool ValidFeatured = true;
+    private static readonly Boolean ValidFeatured = true;
     private static readonly String ValidImageUrl = "https://test.com/image.jpg";
     private static readonly List<String> ValidCategories = ["Category1", "Category2"];
 
     [Fact]
-    public void ToCommandQueryModel_MapsAllPropertiesCorrectly()
+    public void ToQueryModel_MapsAllPropertiesCorrectly()
     {
         // Arrange
         Product product = new Product(
@@ -30,7 +30,7 @@ public class ProductMapperTests
         );
 
         // Act
-        ProductDetails result = product.ToCommandQueryModel();
+        ProductDetails result = product.ToQueryModel();
 
         // Assert
         Assert.NotNull(result);

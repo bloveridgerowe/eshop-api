@@ -5,7 +5,7 @@ namespace Application.Mappers;
 
 public static class CategoryMapper
 {
-    public static CategoryDetails ToCommandQueryModel(this Category category)
+    public static CategoryDetails ToQueryModel(this Category category)
     {
         return new CategoryDetails
         {

@@ -21,7 +21,7 @@ public class GetOrdersQueryHandler : IRequestHandler<GetOrdersQuery, GetOrdersQu
 
         GetOrdersQueryResponse response = new GetOrdersQueryResponse
         {
-            Orders = orders.Select(order => order.ToCommandQueryModel()).ToList()
+            Orders = orders.Select(order => order.ToQueryModel()).ToList()
         };
 
         return response;

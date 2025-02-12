@@ -30,7 +30,7 @@ public class GetBasketDetailsQueryHandler : IRequestHandler<GetBasketDetailsQuer
 
         GetBasketDetailsQueryResponse response = new GetBasketDetailsQueryResponse
         {
-            BasketDetails = basket.ToCommandQueryModel()
+            BasketDetails = basket.ToQueryModel()
         };
 
         return response;

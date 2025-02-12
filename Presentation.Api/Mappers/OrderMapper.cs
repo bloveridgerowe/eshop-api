@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using Application.Commands.Orders;
 using Application.Queries.Orders;
 using Presentation.Api.Endpoints.Orders;
+using Presentation.Api.Extensions;
 
 namespace Presentation.Api.Mappers;
 
@@ -27,6 +29,15 @@ public static class OrderMapper
         return new GetOrdersHttpResponse
         {
             Orders = response.Orders
+        };
+    }
+
+    public static GetOrderDetailsQuery ToQuery(this GetOrderDetailsHttpRequest request, ClaimsPrincipal user)
+    {
+        return new GetOrderDetailsQuery
+        {
+            OrderId = request.OrderId,
+            CustomerId = user.GetId()
         };
     }
 } 

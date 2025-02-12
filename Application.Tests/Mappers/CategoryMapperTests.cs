@@ -11,13 +11,13 @@ public class CategoryMapperTests
     private static readonly String ValidName = "Test Category";
 
     [Fact]
-    public void ToCommandQueryModel_MapsAllPropertiesCorrectly()
+    public void ToQueryModel_MapsAllPropertiesCorrectly()
     {
         // Arrange
         Category category = new Category(ValidId, ValidName);
 
         // Act
-        CategoryDetails result = category.ToCommandQueryModel();
+        CategoryDetails result = category.ToQueryModel();
 
         // Assert
         Assert.NotNull(result);

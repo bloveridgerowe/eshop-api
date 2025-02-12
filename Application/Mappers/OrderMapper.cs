@@ -5,7 +5,7 @@ namespace Application.Mappers;
 
 public static class OrderMapper
 {
-    public static OrderDetails ToCommandQueryModel(this Order order)
+    public static OrderDetails ToQueryModel(this Order order)
     {
         return new OrderDetails
         {
@@ -14,11 +14,11 @@ public static class OrderMapper
             TotalPrice = order.TotalPrice,
             Status = order.Status,
             CreatedAt = order.CreatedAt,
-            Items = order.Items.Select(item => item.ToCommandQueryModel()).ToList()
+            Items = order.Items.Select(item => item.ToQueryModel()).ToList()
         };
     }
 
-    public static OrderItemDetails ToCommandQueryModel(this OrderItem orderItem)
+    public static OrderItemDetails ToQueryModel(this OrderItem orderItem)
     {
         return new OrderItemDetails
         {
