@@ -8,6 +8,7 @@ public class ProductTests
 {
     private static readonly Guid ValidId = Guid.NewGuid();
     private static readonly String ValidName = "Test Product";
+    private static readonly String ValidDescription = "Test Description";
     private static readonly String ValidImageUrl = "https://example.com/image.jpg";
     private static readonly Decimal ValidPrice = 10.00m;
     private static readonly List<String> ValidCategories = ["Category1"];
@@ -15,6 +16,7 @@ public class ProductTests
     private static Product CreateValidProduct(
         Guid? id = null,
         String? name = null,
+        String? description = null,
         bool featured = false,
         String? imageUrl = null,
         Decimal? price = null,
@@ -24,6 +26,7 @@ public class ProductTests
         return new Product(
             id ?? ValidId,
             name ?? ValidName,
+            description ?? ValidDescription,
             featured,
             imageUrl ?? ValidImageUrl,
             price ?? ValidPrice,
@@ -37,26 +40,19 @@ public class ProductTests
         [Fact]
         public void GivenValidParameters_ShouldCreateProduct()
         {
-            // Arrange
-            Guid id = Guid.NewGuid();
-            String name = "Test Product";
-            String imageUrl = "https://example.com/image.jpg";
-            Decimal price = 10.00m;
-            Int32 stock = 5;
-            List<String> categories = ["Category1"];
-
             // Act
-            Product product = new Product(id, name, false, imageUrl, price, stock, categories);
+            Product product = new Product(ValidId, ValidName, ValidDescription, false, ValidImageUrl, ValidPrice, 5, ValidCategories);
 
             // Assert
-            Assert.Equal(id, product.Id);
-            Assert.Equal(name, product.Name);
+            Assert.Equal(ValidId, product.Id);
+            Assert.Equal(ValidName, product.Name);
+            Assert.Equal(ValidDescription, product.Description);
             Assert.False(product.Featured);
-            Assert.Equal(imageUrl, product.ImageUrl);
-            Assert.Equal(price, product.Price);
-            Assert.Equal(stock, product.Stock);
+            Assert.Equal(ValidImageUrl, product.ImageUrl);
+            Assert.Equal(ValidPrice, product.Price);
+            Assert.Equal(5, product.Stock);
             Assert.Single(product.Categories);
-            Assert.Equal(categories[0], product.Categories[0]);
+            Assert.Equal(ValidCategories[0], product.Categories[0]);
         }
 
         [Theory]
@@ -66,7 +62,7 @@ public class ProductTests
         public void GivenInvalidName_ShouldThrowProductValidationException(String? invalidName)
         {
             ProductValidationException exception = Assert.Throws<ProductValidationException>(() => 
-                new Product(ValidId, invalidName!, false, ValidImageUrl, ValidPrice, 0, ValidCategories));
+                new Product(ValidId, invalidName!, ValidDescription, false, ValidImageUrl, ValidPrice, 0, ValidCategories));
             
             Assert.Equal("Product name cannot be empty", exception.Message);
         }
@@ -77,7 +73,7 @@ public class ProductTests
             String longName = new String('a', 201);
             
             ProductValidationException exception = Assert.Throws<ProductValidationException>(() => 
-                new Product(ValidId, longName, false, ValidImageUrl, ValidPrice, 0, ValidCategories));
+                new Product(ValidId, longName, ValidDescription, false, ValidImageUrl, ValidPrice, 0, ValidCategories));
             
             Assert.Equal("Product name cannot be longer than 200 characters", exception.Message);
         }
@@ -89,7 +85,7 @@ public class ProductTests
         public void GivenInvalidPrice_ShouldThrowProductValidationException(Decimal invalidPrice)
         {
             ProductValidationException exception = Assert.Throws<ProductValidationException>(() => 
-                new Product(ValidId, ValidName, false, ValidImageUrl, invalidPrice, 0, ValidCategories));
+                new Product(ValidId, ValidName, ValidDescription, false, ValidImageUrl, invalidPrice, 0, ValidCategories));
             
             Assert.Equal("Price must be at least £0.01", exception.Message);
         }
@@ -100,7 +96,7 @@ public class ProductTests
         public void GivenNegativeStock_ShouldThrowProductValidationException(Int32 invalidStock)
         {
             ProductValidationException exception = Assert.Throws<ProductValidationException>(() => 
-                new Product(ValidId, ValidName, false, ValidImageUrl, ValidPrice, invalidStock, ValidCategories));
+                new Product(ValidId, ValidName, ValidDescription, false, ValidImageUrl, ValidPrice, invalidStock, ValidCategories));
             
             Assert.Equal("Stock cannot be negative", exception.Message);
         }
@@ -113,7 +109,7 @@ public class ProductTests
         public void GivenInvalidImageUrl_ShouldThrowProductValidationException(String? invalidUrl)
         {
             ProductValidationException exception = Assert.Throws<ProductValidationException>(() => 
-                new Product(ValidId, ValidName, false, invalidUrl!, ValidPrice, 0, ValidCategories));
+                new Product(ValidId, ValidName, ValidDescription, false, invalidUrl!, ValidPrice, 0, ValidCategories));
             
             Assert.Contains("URL", exception.Message);
         }
@@ -122,7 +118,7 @@ public class ProductTests
         public void GivenNullCategories_ShouldThrowProductValidationException()
         {
             ProductValidationException exception = Assert.Throws<ProductValidationException>(() => 
-                new Product(ValidId, ValidName, false, ValidImageUrl, ValidPrice, 0, null!));
+                new Product(ValidId, ValidName, ValidDescription, false, ValidImageUrl, ValidPrice, 0, null!));
             
             Assert.Equal("Product must have at least one category", exception.Message);
         }
@@ -131,7 +127,7 @@ public class ProductTests
         public void GivenEmptyCategories_ShouldThrowProductValidationException()
         {
             ProductValidationException exception = Assert.Throws<ProductValidationException>(() => 
-                new Product(ValidId, ValidName, false, ValidImageUrl, ValidPrice, 0, []));
+                new Product(ValidId, ValidName, ValidDescription,false, ValidImageUrl, ValidPrice, 0, []));
             
             Assert.Equal("Product must have at least one category", exception.Message);
         }
@@ -140,7 +136,7 @@ public class ProductTests
         public void GivenCategoriesWithEmptyValue_ShouldThrowProductValidationException()
         {
             ProductValidationException exception = Assert.Throws<ProductValidationException>(() => 
-                new Product(ValidId, ValidName, false, ValidImageUrl, ValidPrice, 0, ["Valid", ""]));
+                new Product(ValidId, ValidName, ValidDescription,false, ValidImageUrl, ValidPrice, 0, ["Valid", ""]));
             
             Assert.Equal("Categories cannot contain empty values", exception.Message);
         }
@@ -155,7 +151,7 @@ public class ProductTests
         public void GivenValidNewPrice_ShouldUpdatePrice(Decimal initialPrice, Decimal newPrice)
         {
             // Arrange
-            Product product = new Product(ValidId, ValidName, false, ValidImageUrl, initialPrice, 0, ValidCategories);
+            Product product = new Product(ValidId, ValidName, ValidDescription,false, ValidImageUrl, initialPrice, 0, ValidCategories);
 
             // Act
             product.UpdatePrice(newPrice);

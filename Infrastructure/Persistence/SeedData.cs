@@ -277,6 +277,7 @@ public class SeedData
         return new Product(
             Guid.NewGuid(),
             name,
+            "Lorem ipsum odor amet, consectetuer adipiscing elit. Montes hac eleifend nibh inceptos libero. Ex varius ultrices tortor sodales montes eros elit ultrices libero. Non adipiscing interdum montes duis vel neque amet ullamcorper fringilla. Dui varius id, rhoncus donec volutpat cras. Bibendum elementum vivamus sollicitudin eleifend lectus vitae luctus. Finibus parturient consequat luctus taciti efficitur lorem nibh semper. Est ut augue augue ultrices et mi. Venenatis commodo lobortis etiam sed ullamcorper efficitur morbi lectus.\n\nAliquet tristique volutpat interdum ligula proin; senectus praesent. Ex nunc consectetur mi, bibendum quisque conubia dolor donec. Purus aenean nascetur sociosqu habitasse nam est lobortis. Non lacus commodo parturient, condimentum laoreet ornare. Interdum phasellus lobortis integer sed sollicitudin. Ante venenatis inceptos feugiat hac curabitur fusce vestibulum et hac.",
             stock % 2 == 0,
             $"https://picsum.photos/seed/{imageId}/300/300",
             price,

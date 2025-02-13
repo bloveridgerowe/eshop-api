@@ -1,10 +1,9 @@
 namespace Application.DataTransferObjects;
 
-public class ProductDetails
+public class ProductSummary
 {
     public Guid Id { get; init; }
     public String Name { get; init; }
-    public String Description { get; init; }
     public Decimal Price { get; init; }
     public Int32 Stock { get; init; }
     public Boolean Featured { get; init; }

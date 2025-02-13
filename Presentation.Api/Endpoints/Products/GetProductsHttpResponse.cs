@@ -4,5 +4,5 @@ namespace Presentation.Api.Endpoints.Products;
 
 public class GetProductsHttpResponse
 {
-    public List<ProductDetails> Products { get; init; } = [];
+    public List<ProductSummary> Products { get; init; } = [];
 }

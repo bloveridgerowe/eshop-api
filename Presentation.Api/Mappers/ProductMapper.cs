@@ -13,6 +13,14 @@ public static class ProductMapper
         };
     }
 
+    public static GetProductHttpResponse ToHttpResponse(this GetProductQueryResponse response)
+    {
+        return new GetProductHttpResponse
+        {
+            ProductDetails = response.ProductDetails
+        };
+    }
+
     public static GetProductsQuery ToQuery(this GetProductsHttpRequest request)
     {
         return new GetProductsQuery
@@ -20,6 +28,14 @@ public static class ProductMapper
             Search = request.Search,
             Category = request.Category,
             Featured = request.Featured
+        };
+    }
+
+    public static GetProductQuery ToQuery(this GetProductHttpRequest request)
+    {
+        return new GetProductQuery
+        {
+            ProductId = request.ProductId,
         };
     }
 }

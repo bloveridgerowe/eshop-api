@@ -1,5 +1,6 @@
 using Application.DataTransferObjects;
 using Application.Queries.Products;
+using Application.Services;
 using Domain.Entities;
 using Domain.Repositories;
 using Moq;
@@ -12,32 +13,33 @@ public class GetProductsQueryHandlerTests
     private static readonly Guid ValidProductId = Guid.NewGuid();
     private static readonly Guid ValidCategoryId = Guid.NewGuid();
     private static readonly String ValidName = "Test Product";
+    private static readonly String ValidDescription = "Test Description";
     private static readonly Decimal ValidPrice = 10.00m;
     private static readonly Int32 ValidStock = 5;
-    private static readonly bool ValidFeatured = true;
+    private static readonly Boolean ValidFeatured = true;
     private static readonly String ValidImageUrl = "https://test.com/image.jpg";
     private static readonly List<String> ValidCategories = ["Category1"];
 
-    private readonly Mock<IProductRepository> _productRepositoryMock;
+    private readonly Mock<IProductQueryService> _productRepositoryMock;
     private readonly GetProductsQueryHandler _handler;
-    private readonly List<Product> _products;
+    private readonly List<ProductSummary> _products;
 
     public GetProductsQueryHandlerTests()
     {
-        _productRepositoryMock = new Mock<IProductRepository>();
+        _productRepositoryMock = new Mock<IProductQueryService>();
         _handler = new GetProductsQueryHandler(_productRepositoryMock.Object);
-
         _products = 
         [
-            new Product(
-                ValidProductId,
-                ValidName,
-                ValidFeatured,
-                ValidImageUrl,
-                ValidPrice,
-                ValidStock,
-                ValidCategories
-            )
+            new ProductSummary
+            {
+                Id = ValidProductId,
+                Name = ValidName,
+                Categories = ValidCategories,
+                Featured = ValidFeatured,
+                ImageUrl = ValidImageUrl,
+                Price = ValidPrice,
+                Stock = ValidStock,
+            }
         ];
     }
 
@@ -59,7 +61,7 @@ public class GetProductsQueryHandlerTests
             Assert.NotNull(response);
             Assert.Single(response.Products);
             
-            ProductDetails product = response.Products[0];
+            ProductSummary product = response.Products[0];
             Assert.Equal(ValidProductId, product.Id);
             Assert.Equal(ValidName, product.Name);
             Assert.Equal(ValidPrice, product.Price);

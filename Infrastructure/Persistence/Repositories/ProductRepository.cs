@@ -15,33 +15,6 @@ public class ProductRepository : IProductRepository
     {
         _context = context;
     }
-    
-    public async Task<List<Product>> FindFeaturedAsync()
-    {
-        return await _context.Products
-            .Include(p => p.Categories)
-            .Where(p => p.Featured)
-            .Select(p => p.ToDomain())
-            .ToListAsync();
-    }
-
-    public async Task<List<Product>> FindByCategoryAsync(Guid categoryId)
-    {
-        return await _context.Products
-            .Include(p => p.Categories)
-            .Where(p => p.Categories.Any(c => c.Id == categoryId))
-            .Select(p => p.ToDomain())
-            .ToListAsync();
-    }
-
-    public async Task<List<Product>> FindByIdsAsync(List<Guid> ids)
-    {
-        List<ProductEntity> entities = await _context.Products
-            .Where(p => ids.Contains(p.Id))
-            .ToListAsync();
-
-        return entities.Select(e => e.ToDomain()).ToList();
-    }
 
     public async Task<Product?> FindByIdAsync(Guid id)
     {
@@ -52,14 +25,7 @@ public class ProductRepository : IProductRepository
         return entity?.ToDomain();
     }
 
-    public async Task<List<Product>> FindByPartialNameAsync(String partialName)
-    {
-        return await _context.Products
-            .Include(p => p.Categories)
-            .Where(p => p.Name.ToLower().Contains(partialName.ToLower()))
-            .Select(entity => entity.ToDomain())
-            .ToListAsync();
-    }
+
     
     public async Task<bool> DeleteAsync(Guid productId)
     {

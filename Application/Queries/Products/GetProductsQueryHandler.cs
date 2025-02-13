@@ -1,39 +1,38 @@
-using Application.Mappers;
-using Domain.Entities;
-using Domain.Repositories;
+using Application.DataTransferObjects;
+using Application.Services;
 using MediatR;
 
 namespace Application.Queries.Products;
 
 public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, GetProductsQueryResponse>
 {
-    private readonly IProductRepository _productRepository;
+    private readonly IProductQueryService _productQueryService;
 
-    public GetProductsQueryHandler(IProductRepository productRepository)
+    public GetProductsQueryHandler(IProductQueryService productQueryService)
     {
-        _productRepository = productRepository;
+        _productQueryService = productQueryService;
     }
     
     public async Task<GetProductsQueryResponse> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
-        List<Product> products = [];
+        List<ProductSummary> products = [];
         
         if (request.Search is not null)
         {
-            products = await _productRepository.FindByPartialNameAsync(request.Search);
+            products = await _productQueryService.FindByPartialNameAsync(request.Search);
         }
         else if (request.Category is not null)
         {
-            products = await _productRepository.FindByCategoryAsync(request.Category.Value);
+            products = await _productQueryService.FindByCategoryAsync(request.Category.Value);
         }
         else if (request.Featured is not null)
         {
-            products = await _productRepository.FindFeaturedAsync();
+            products = await _productQueryService.FindFeaturedAsync();
         }
 
         return new GetProductsQueryResponse
         {
-            Products = products.Select(p => p.ToQueryModel()).ToList()
+            Products = products
         };
     }
 }

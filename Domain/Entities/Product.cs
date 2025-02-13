@@ -8,22 +8,25 @@ public class Product : Entity
     private const Decimal MinPrice = 0.01m;
     
     public String Name { get; private set; }
+    public String Description { get; private set; }
     public Decimal Price { get; private set; }
     public Int32 Stock { get; private set; }
     public Boolean Featured { get; private set; }
     public String ImageUrl { get; private set; }
     public List<String> Categories { get; private init; }
 
-    public Product(Guid id, String name, Boolean featured, String imageUrl, Decimal price, Int32 stock, List<String> categories)
+    public Product(Guid id, String name, String description, Boolean featured, String imageUrl, Decimal price, Int32 stock, List<String> categories)
         : base(id)
     {
         ValidateName(name);
+        ValidateDescription(description);
         ValidatePrice(price);
         ValidateInitialStock(stock);
         ValidateImageUrl(imageUrl);
         ValidateCategories(categories);
         
         Name = name;
+        Description = description;
         Featured = featured;
         Price = price;
         ImageUrl = imageUrl;
@@ -104,6 +107,19 @@ public class Product : Entity
         {
             throw new ProductValidationException($"Product name cannot be longer than {MaxNameLength} characters");
         }
+    }
+    
+    private static void ValidateDescription(String description)
+    {
+        if (String.IsNullOrWhiteSpace(description))
+        {
+            throw new ProductValidationException("Product description cannot be empty");
+        }
+        
+        // if (description.Length > MaxNameLength)
+        // {
+        //     throw new ProductValidationException($"Product description cannot be longer than {MaxNameLength} characters");
+        // }
     }
     
     private static void ValidatePrice(Decimal price)

@@ -4,5 +4,5 @@ namespace Application.Queries.Products;
 
 public class GetProductsQueryResponse
 {
-    public List<ProductDetails> Products { get; init; }
+    public List<ProductSummary> Products { get; init; }
 }

@@ -14,9 +14,11 @@ public class UpdateBasketDetailsCommandHandlerTests
     private static readonly Guid ValidBasketId = Guid.NewGuid();
     private static readonly Guid ValidProductId = Guid.NewGuid();
     private static readonly String ValidProductName = "Test Product";
+    private static readonly String ValidProductDescription = "Test Description";
     private static readonly Product ValidProduct = new(
         Guid.NewGuid(),
-        "Test Product",
+        ValidProductName,
+        ValidProductDescription,
         false,
         "https://test.image.com/",
         9.99M,

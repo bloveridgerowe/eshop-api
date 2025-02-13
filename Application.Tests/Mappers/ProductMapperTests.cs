@@ -10,18 +10,20 @@ public class ProductMapperTests
     private static readonly Guid ValidId = Guid.NewGuid();
     private static readonly String ValidName = "Test Product";
     private static readonly Decimal ValidPrice = 10.00m;
+    private static readonly String ValidDescription = "Test Description";
     private static readonly Int32 ValidStock = 5;
     private static readonly Boolean ValidFeatured = true;
     private static readonly String ValidImageUrl = "https://test.com/image.jpg";
     private static readonly List<String> ValidCategories = ["Category1", "Category2"];
 
     [Fact]
-    public void ToQueryModel_MapsAllPropertiesCorrectly()
+    public void ToSummaryQueryModel_MapsAllPropertiesCorrectly()
     {
         // Arrange
         Product product = new Product(
             ValidId,
             ValidName,
+            ValidDescription,
             ValidFeatured,
             ValidImageUrl,
             ValidPrice,
@@ -30,7 +32,7 @@ public class ProductMapperTests
         );
 
         // Act
-        ProductDetails result = product.ToQueryModel();
+        ProductSummary result = product.ToSummaryQueryModel();
 
         // Assert
         Assert.NotNull(result);

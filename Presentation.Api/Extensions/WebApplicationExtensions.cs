@@ -1,12 +1,14 @@
 using System.Text;
 using Application;
 using Application.Interfaces;
+using Application.Services;
 using Domain.Repositories;
 using Domain.Services;
 using FastEndpoints;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Entities.Users;
 using Infrastructure.Persistence.Repositories;
+using Infrastructure.Persistence.Services;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -123,6 +125,7 @@ public static class WebApplicationExtensions
             .AddScoped<ICustomerRepository, CustomerRepository>()
             .AddHttpClient()
             .AddScoped<SeedData>()
+            .AddScoped<IProductQueryService, ProductQueryService>()
             .AddScoped<IBasketRepository, BasketRepository>()
             .AddScoped<ICategoryRepository, CategoryRepository>()
             .AddScoped<IProductRepository, ProductRepository>()

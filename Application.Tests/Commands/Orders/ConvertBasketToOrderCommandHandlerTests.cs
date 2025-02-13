@@ -18,6 +18,7 @@ namespace Application.Tests.Commands.Orders
         private static readonly Guid ValidBasketId = Guid.NewGuid();
         private static readonly Guid ValidProductId = Guid.NewGuid();
         private static readonly String ValidProductName = "Test Product";
+        private static readonly String ValidProductDescription = "Test Description";
         private static readonly String ValidEmail = "test@example.com";
         private static readonly String ValidName = "John Doe";
         private static readonly Address ValidAddress = new(
@@ -61,7 +62,7 @@ namespace Application.Tests.Commands.Orders
 
             _customer = new Customer(ValidCustomerId, ValidEmail, ValidName, ValidAddress, ValidCardDetails);
 
-            _product = new Product(ValidProductId, "Test Product", false, "https://www.test.com/test.jpg", ValidPrice, 10, ["Test"]);
+            _product = new Product(ValidProductId, ValidProductName, ValidProductDescription, false, "https://www.test.com/test.jpg", ValidPrice, 10, ["Test"]);
 
             _basketRepositoryMock
                 .Setup(x => x.FindByIdAsync(ValidBasketId))
