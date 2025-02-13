@@ -38,7 +38,8 @@ public static class WebApplicationExtensions
     {
         using IServiceScope scope = webApplication.Services.CreateScope();
         using ECommerceDbContext context = scope.ServiceProvider.GetRequiredService<ECommerceDbContext>();
-        context.Database.EnsureCreated();
+        // context.Database.EnsureCreated();
+        context.Database.EnsureDeleted();
         
         return webApplication;
     }
