@@ -1,0 +1,7 @@
+[build]
+builder = "dockerfile"
+dockerfilePath = "./Presentation.Api/Dockerfile"
+
+[deploy]
+startCommand = "dotnet Presentation.Api.dll"
+restartPolicyType = "never"
