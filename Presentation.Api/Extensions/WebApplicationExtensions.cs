@@ -155,9 +155,7 @@ public static class WebApplicationExtensions
     
     public static WebApplicationBuilder AddHostedServices(this WebApplicationBuilder webApplicationBuilder)
     {
-        webApplicationBuilder.Services
-            .AddHostedService<OrderFulfilmentBackgroundService>()
-            .AddHostedService<StaleSessionCleanupBackgroundService>();
+        webApplicationBuilder.Services.AddHostedService<StaleSessionCleanupBackgroundService>();
 
         return webApplicationBuilder;
     }
